@@ -2688,7 +2688,7 @@ class DbDatabase:
 
         # LadyDevimon
         # from
-        self.digiEvolution[i][0][0] = "Icemon"
+        self.digiEvolution[i][0][0] = "IceDevimon"
         self.digiEvolution[i][0][1] = "Kyubimon"
         self.digiEvolution[i][0][2] = "Bakemon"
         self.digiEvolution[i][0][3] = "BlackGatomon"

@@ -3,10 +3,11 @@ database = DbDatabase.DbDatabase()
 
 
 class DPath:
-    def __init__(self, initial, final):
+    def __init__(self, initial, final, exceptions=""):
         self.initial = initial
         self.final = final
         self.final_real = final
+        self.exceptions = exceptions
 
         self.seekCache = []
         self.path = []
@@ -15,11 +16,11 @@ class DPath:
     def initPath(self):
         self.path.append(self.final_real)
         id = self.getDigimonID(self.initial)
-        found = self.seek(id)
+        found = self.seek(id, self.exceptions)
         while (found == False):
             for cached in self.seekCache:
                 id = self.getDigimonID(cached)
-                found = self.seek(id)
+                found = self.seek(id, self.exceptions)
                 if (found):
                     break
         self.path.append(self.initial)
@@ -31,12 +32,11 @@ class DPath:
         except:
             pass
 
-    def seek(self, id):
+    def seek(self, id, exceptions):
         try:
             for way in range(2):
                 for digivolution in range(8):
-                    if (database.digiEvolution[id][way][digivolution] == self.final):
-                        print(f"Found throught {database.Digimons[id]}")
+                    if (database.digiEvolution[id][way][digivolution] == self.final and database.Digimons[id] not in exceptions):
                         if (database.Digimons[id] != self.initial):
                             self.final = database.Digimons[id]
                             self.path.append(self.final)
